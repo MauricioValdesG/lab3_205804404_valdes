@@ -57,7 +57,6 @@ public class Editor{
         this.activeUser = activeUser;
     }
     
-    
     public void llenarStack(Editor editor1){
         Usuario user1= new Usuario("user1", "pass1");
         Usuario user2= new Usuario("user2", "pass2");
@@ -111,6 +110,57 @@ public class Editor{
         editor1.doclist.add(doc10);
     }
     
+    public void register(String NombreUser, String contraseniaUser){
+        
+        if(userlist == null || userlist.isEmpty()){
+            Usuario newuser= new Usuario(NombreUser, contraseniaUser);
+            userlist.add(newuser);
+            System.out.println("Usuario registrado.");
+        }else{
+            int aux=0;
+            for(int i=0;i<userlist.size();i++){
+                if (userlist.get(i).getNombre().equals(NombreUser)){
+                    aux=1;
+                    break;
+                }
+            }
+            if (aux==1){
+                System.out.println("El usuario ya se encuentra registrado");
+            }else{
+                Usuario newuser= new Usuario(NombreUser, contraseniaUser);
+                userlist.add(newuser);
+                System.out.println("Usuario registrado.");
+            }
+        }
+    }
+    
+    public void login(String NombreUser, String contraseniaUser){
+        
+        int aux=0;
+        if (userlist == null || userlist.isEmpty()){
+            System.out.println("No existen usuarios registrados");
+        }else{
+            for(int i=0;i<userlist.size();i++){
+                if (userlist.get(i).getNombre().equals(NombreUser)){
+                    if (userlist.get(i).getContrasenia().equals(contraseniaUser)){
+                        this.activeUser=NombreUser;
+                        aux=1;
+                        System.out.println("Sesion iniciada");
+                    }else{
+                        System.out.println("Contrasenia incorrecta");
+                    }break; 
+                }
+            }
+            if (aux==0) {
+                System.out.println("Usuario no registrado");
+            }
+        }
+    }
+    
+    public void logout(){
+        this.activeUser = "";
+    }
+    
     @Override
     public String toString(){
         if (activeUser.equals("")) {
@@ -122,22 +172,8 @@ public class Editor{
                     + "\n"
                     + doclist.toString();
         }
+        return null;
         
-        Usuario useraux = null;
-        for (int i = 0; i < userlist.size(); i++) {
-            if (userlist.get(i).getNombre().equals(activeUser)){
-                useraux = userlist.get(i);
-            }
-        }
-        
-        Documento docaux = null;
-        for (int i = 0; i < doclist.size(); i++) {
-            if (doclist.get(i).getAutor().equals(activeUser)){
-                docaux = doclist.get(i);
-            }
-        }
-        
-        return useraux.toString() +docaux.toString();
     }
     
     

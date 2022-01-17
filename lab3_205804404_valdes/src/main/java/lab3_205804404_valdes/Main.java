@@ -70,6 +70,7 @@ public class Main {
                         nombreUser = sn3.nextLine();
                         System.out.println("Ahora escriba su contrasenia");
                         contraseniaUser = sn4.nextLine();
+                        editor.register(nombreUser, contraseniaUser);
                         break;  
                     case 2:
                         String nombreUser2 = null;
@@ -80,6 +81,65 @@ public class Main {
                         nombreUser2 = sn5.nextLine();
                         System.out.println("Ahora escriba su contrasenia");
                         contraseniaUser2 = sn6.nextLine();
+                        editor.login(nombreUser2, contraseniaUser2);
+                        if (editor.getActiveUser().equals(nombreUser2)){
+                            boolean salir3 = false;
+                            while(!salir3){
+                                int opcion2=0;
+                                System.out.println("1. Crear nuevo documento");
+                                System.out.println("2. Compartir documento");
+                                System.out.println("3. Agregar contenido a un documento");
+                                System.out.println("4. Restaurar versión de un documento");
+                                System.out.println("5. Revocar acceso a un documento");
+                                System.out.println("6. Buscar en los documentos");
+                                System.out.println("7. Visualizar documentos");
+                                System.out.println("8. Cerrar sesión");
+                                System.out.println("9. Salir del programa");
+                                Scanner sn7 = new Scanner(System.in);
+                                try {                                   
+                                    System.out.println("Elige una de las opciones");
+                                    opcion2 = sn7.nextInt();
+                                    switch (opcion2) {
+                                        case 1:
+                                            System.out.println("Has seleccionado Crear nuevo documento");
+                                            break;
+                                        case 2:
+                                            System.out.println("Has seleccionado Compartir documento");
+                                            break;
+                                        case 3:
+                                            System.out.println("Has seleccionado Agregar contenido a un documento");
+                                            break;
+                                        case 4:
+                                            System.out.println("Has seleccionado Restaurar versión de un documento");
+                                            break;
+                                        case 5:
+                                            System.out.println("Has seleccionado Revocar acceso a un documento");
+                                            break;
+                                        case 6:
+                                            System.out.println("Has seleccionado Buscar en los documentos");
+                                            break;
+                                        case 7:
+                                            System.out.println("Has seleccionado Visualizar red social");
+                                            break;
+                                        case 8:
+                                            System.out.println("Has seleccionado Cerrar sesión");
+                                            editor.logout();
+                                            salir3 = true;
+                                            break;
+                                        case 9:
+                                            System.out.println("Has seleccionado Salir del programa, hasta la proxima");
+                                            salir3 = true;
+                                            salir2 = true;
+                                            break;
+                                        default:
+                                            System.out.println("Solo números entre 1 y 9");
+                                    }
+                                }catch (InputMismatchException e) {
+                                    System.out.println("Debes insertar un número");
+                                    sn2.nextInt();
+                                }
+                            }
+                        }
                         break;
                     case 3:
                         System.out.println("Has seleccionado Visualizar editor colaborativo");
