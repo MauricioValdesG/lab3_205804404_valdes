@@ -75,7 +75,7 @@ public class Documento {
                 + ", nombreDocumento=" 
                 + nombreDocumento 
                 + ", contenido=" 
-                + contenido 
+                + contenido.toString()
                 + ", compartidos=" 
                 + compartidos 
                 + '}';

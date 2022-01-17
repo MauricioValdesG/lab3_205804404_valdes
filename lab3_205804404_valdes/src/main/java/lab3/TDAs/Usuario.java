@@ -44,12 +44,10 @@ public class Usuario {
         return "Usuario{"
                 + "id=" 
                 + id 
-                + ", fecha=" 
-                + fecha 
                 + ", Nombre=" 
                 + Nombre 
-                + ", Contrasenia=" 
-                + Contrasenia 
+                + ", fecha=" 
+                + fecha 
                 + '}';
     }
 }

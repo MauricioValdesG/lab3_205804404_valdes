@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-class Contenido {
+class Contenido{
     
     //atributo
     private static final AtomicInteger counter = new AtomicInteger();
