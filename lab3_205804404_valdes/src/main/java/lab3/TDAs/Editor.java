@@ -73,16 +73,16 @@ public class Editor{
         Contenido contenido8= new Contenido("cont8");
         Contenido contenido9= new Contenido("cont9");
         Contenido contenido10= new Contenido("cont10");
-        Documento doc1= new Documento("autor1", "nombre1");
-        Documento doc2= new Documento("autor2", "nombre2");
-        Documento doc3= new Documento("autor3", "nombre3");
-        Documento doc4= new Documento("autor4", "nombre4");
-        Documento doc5= new Documento("autor5", "nombre5");
-        Documento doc6= new Documento("autor6", "nombre6");
-        Documento doc7= new Documento("autor7", "nombre7");
-        Documento doc8= new Documento("autor8", "nombre8");
-        Documento doc9= new Documento("autor9", "nombre9");
-        Documento doc10= new Documento("autor10", "nombre10");
+        Documento doc1= new Documento("user1", "nombre1");
+        Documento doc2= new Documento("user2", "nombre2");
+        Documento doc3= new Documento("user3", "nombre3");
+        Documento doc4= new Documento("user4", "nombre4");
+        Documento doc5= new Documento("user5", "nombre5");
+        Documento doc6= new Documento("user6", "nombre6");
+        Documento doc7= new Documento("user7", "nombre7");
+        Documento doc8= new Documento("user8", "nombre8");
+        Documento doc9= new Documento("user9", "nombre9");
+        Documento doc10= new Documento("user10", "nombre10");
         doc1.contenido.add(contenido1);
         doc2.contenido.add(contenido2);
         doc3.contenido.add(contenido3);
@@ -159,6 +159,19 @@ public class Editor{
     
     public void logout(){
         this.activeUser = "";
+    }
+    
+    public void create(String nombre, String contenido){
+        if ("".equals(activeUser)) {
+            System.out.println("La publicacion se ha realizado con exito.");
+        }
+        else{
+            Documento newDocumento = new Documento(activeUser, nombre);
+            Contenido newContenido = new Contenido(contenido);
+            newDocumento.contenido.add(newContenido);
+            doclist.add(newDocumento);
+            System.out.println("La publicacion se ha realizado con exito.");
+        }
     }
     
     @Override

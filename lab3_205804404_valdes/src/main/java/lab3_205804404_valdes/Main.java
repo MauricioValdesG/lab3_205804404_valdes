@@ -102,6 +102,15 @@ public class Main {
                                     switch (opcion2) {
                                         case 1:
                                             System.out.println("Has seleccionado Crear nuevo documento");
+                                            Scanner sn10 = new Scanner(System.in);
+                                            String nombreDoc;
+                                            System.out.println("Escriba el Nombre del Documento que desea crear:");
+                                            nombreDoc = sn10.nextLine();
+                                            Scanner sn11 = new Scanner(System.in);
+                                            String contenidoDoc;
+                                            System.out.println("Escriba el Contenido del Documento que desea crear:");
+                                            contenidoDoc = sn11.nextLine();
+                                            editor.create(nombreDoc, contenidoDoc);
                                             break;
                                         case 2:
                                             System.out.println("Has seleccionado Compartir documento");
