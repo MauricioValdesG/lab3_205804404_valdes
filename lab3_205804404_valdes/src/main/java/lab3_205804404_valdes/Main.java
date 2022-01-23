@@ -154,9 +154,20 @@ public class Main {
                                             break;
                                         case 4:
                                             System.out.println("Has seleccionado Restaurar versión de un documento");
+                                            System.out.println("Escriba el id del documento");
+                                            int idDoc3;
+                                            idDoc3= sn2.nextInt();
+                                            System.out.println("Escriba el id de la version que desea restaurar");
+                                            int versionRestaurar;
+                                            versionRestaurar = sn5.nextInt();
+                                            editor.rollback(idDoc3, versionRestaurar);
                                             break;
                                         case 5:
                                             System.out.println("Has seleccionado Revocar acceso a un documento");
+                                            System.out.println("Escriba el id del documento");
+                                            int idDoc4;
+                                            idDoc4= sn2.nextInt();
+                                            editor.revokeAccess(idDoc4);
                                             break;
                                         case 6:
                                             System.out.println("Has seleccionado Buscar en los documentos");

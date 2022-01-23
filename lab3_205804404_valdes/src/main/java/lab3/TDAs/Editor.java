@@ -232,14 +232,16 @@ public class Editor{
         String textoAntiguo;
         String textoNuevo;
         int flag=0;
+        int idActivo;
         for (int i = 0; i < doclist.size(); i++) {
             if (doclist.get(i).getId()==idDoc) {
                 if (doclist.get(i).getAutor().equals(activeUser)) {
                     flag=1;
-                    textoAntiguo=doclist.get(i).getContenido().get(doclist.get(i).getContenido().size()-1).getTexto();
+                    idActivo= doclist.get(i).getContenido().size()-1;
+                    textoAntiguo=doclist.get(i).getContenido().get(idActivo).getTexto();
                     textoNuevo=textoAntiguo.concat(textoAgregar);
                     Contenido contenidoAgregar= new Contenido(textoNuevo);
-                    contenidoAgregar.setId(doclist.get(i).getContenido().size());
+                    contenidoAgregar.setId(idActivo+1);
                     doclist.get(i).contenido.add(contenidoAgregar);
                     System.out.println("El texto se ha añadido con exito como una nueva version del documento.");
                     break;
@@ -267,6 +269,67 @@ public class Editor{
         }
         if (flag==0) {
             System.out.println("No se encontro el documento.");
+        }
+    }
+    
+    public void rollback(int idDoc, int idVersion){
+    
+        int flag=0;
+        String textoAntiguo = null;
+        for (int i = 0; i < doclist.size(); i++) {
+            if (doclist.get(i).getId()==idDoc) {
+                if (doclist.get(i).getAutor().equals(activeUser)) {
+                    for (int j = 0; j < doclist.get(i).getContenido().size(); j++) {
+                        if (doclist.get(i).getContenido().get(j).getId()==idVersion) {
+                            flag=1;
+                            textoAntiguo=doclist.get(i).getContenido().get(j).getTexto();
+                            Contenido contenidoAgregar= new Contenido(textoAntiguo);
+                            contenidoAgregar.setId(doclist.get(i).getContenido().size());
+                            doclist.get(i).contenido.add(contenidoAgregar);
+                            System.out.println("La version señalada se ha restaurad como una nueva version del documento y ahora esta es la version activa.");
+                            break;
+                        }else{
+                            flag=3;
+                        }
+                    }
+                    break;
+                }else{
+                    flag=2;
+                }
+            }
+        }
+        if (flag==0) {
+            System.out.println("No se encontro el documento.");
+        }
+        if (flag==2) {
+            System.out.println("Usted no es el autor de este documento.");
+        }
+        if (flag==3) {
+            System.out.println("No se encontro la version.");
+        }
+    }
+    
+    public void revokeAccess(int idDoc){
+        
+        int flag=0;
+        ArrayList<Compartidos> listaVacia = new ArrayList();
+        for (int i = 0; i < doclist.size(); i++) {
+            if (doclist.get(i).getId()==idDoc) {
+                if (doclist.get(i).getAutor().equals(activeUser)) {
+                    flag=1;
+                    doclist.get(i).setCompartidos(listaVacia);
+                    System.out.println("Se revocaron todos los permisos de este archivo.");
+                    break;
+                }else{
+                    flag=2;
+                }
+            }
+        }
+        if (flag==0) {
+            System.out.println("No se encontro el documento.");
+        }
+        if (flag==2) {
+            System.out.println("No es el autor de este documento.");
         }
     }
     
