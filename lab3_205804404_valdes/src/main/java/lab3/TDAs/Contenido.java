@@ -6,20 +6,19 @@
 package lab3.TDAs;
 
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 
 class Contenido{
     
     //atributo
-    private static final AtomicInteger counter = new AtomicInteger();
-    private final int id;
+    int id;
     private final String texto;
     private final Date fecha;
 
     public Contenido(String texto) {
         
-        this.id = counter.incrementAndGet();
+        this.id = 0;
         this.fecha = new Date();
         this.texto = texto;
     }
@@ -34,6 +33,10 @@ class Contenido{
 
     public Date getFecha() {
         return fecha;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

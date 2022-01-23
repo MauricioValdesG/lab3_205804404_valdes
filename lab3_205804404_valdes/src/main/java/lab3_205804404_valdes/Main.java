@@ -115,10 +115,13 @@ public class Main {
                                             break;
                                         case 2:
                                             System.out.println("Has seleccionado Compartir documento");
-                                            System.out.println("Escriba el id del post");
+                                            System.out.println("Escriba el id del documento");
                                             int idDoc;
                                             idDoc = sn2.nextInt();
-                                            System.out.println("Escriba el tipo de permiso");
+                                            System.out.println("A continuacion es el tipo de permiso");
+                                            System.out.println("Solo se admite W, R, C, todos en mayuscula");
+                                            System.out.println("Cualquier otra letra no tendra ningun efecto dentro de las funciones que pueda realizar el usuario");
+                                            System.out.println("Escriba el tipo de permiso:");
                                             String permiso;
                                             permiso = sn5.nextLine();
                                             System.out.println("A continuacion escribe los nombres de los usuarios a los cuales quieres compartir la publicacion");
@@ -141,6 +144,13 @@ public class Main {
                                             break;
                                         case 3:
                                             System.out.println("Has seleccionado Agregar contenido a un documento");
+                                            System.out.println("Escriba el id del documento");
+                                            int idDoc2;
+                                            idDoc2= sn2.nextInt();
+                                            System.out.println("Escriba el texto que desea agregar");
+                                            String textoAgregar;
+                                            textoAgregar = sn5.nextLine();
+                                            editor.add(idDoc2, textoAgregar);
                                             break;
                                         case 4:
                                             System.out.println("Has seleccionado Restaurar versión de un documento");

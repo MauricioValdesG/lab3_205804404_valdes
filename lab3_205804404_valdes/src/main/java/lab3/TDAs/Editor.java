@@ -78,11 +78,21 @@ public class Editor{
         Documento doc3= new Documento("user3", "nombre3");
         Documento doc4= new Documento("user4", "nombre4");
         Documento doc5= new Documento("user5", "nombre5");
-        Documento doc6= new Documento("user6", "nombre6");
-        Documento doc7= new Documento("user7", "nombre7");
-        Documento doc8= new Documento("user8", "nombre8");
-        Documento doc9= new Documento("user9", "nombre9");
-        Documento doc10= new Documento("user10", "nombre10");
+        Documento doc6= new Documento("user1", "nombre6");
+        Documento doc7= new Documento("user2", "nombre7");
+        Documento doc8= new Documento("user3", "nombre8");
+        Documento doc9= new Documento("user4", "nombre9");
+        Documento doc10= new Documento("user5", "nombre10");
+        contenido1.setId(doc1.getContenido().size()+1);
+        contenido2.setId(doc2.getContenido().size()+1);
+        contenido3.setId(doc3.getContenido().size()+1);
+        contenido4.setId(doc4.getContenido().size()+1);
+        contenido5.setId(doc5.getContenido().size()+1);
+        contenido6.setId(doc6.getContenido().size()+1);
+        contenido7.setId(doc7.getContenido().size()+1);
+        contenido8.setId(doc8.getContenido().size()+1);
+        contenido9.setId(doc9.getContenido().size()+1);
+        contenido10.setId(doc10.getContenido().size()+1);
         doc1.contenido.add(contenido1);
         doc2.contenido.add(contenido2);
         doc3.contenido.add(contenido3);
@@ -168,6 +178,7 @@ public class Editor{
         else{
             Documento newDocumento = new Documento(activeUser, nombre);
             Contenido newContenido = new Contenido(contenido);
+            newContenido.setId(newDocumento.getContenido().size()+1);
             newDocumento.contenido.add(newContenido);
             doclist.add(newDocumento);
             System.out.println("La publicacion se ha realizado con exito.");
@@ -214,6 +225,48 @@ public class Editor{
                 System.out.println("No se ha podido compartir el documento.");
             }
             
+        }
+    }
+    
+    public void add(int idDoc, String textoAgregar){
+        String textoAntiguo;
+        String textoNuevo;
+        int flag=0;
+        for (int i = 0; i < doclist.size(); i++) {
+            if (doclist.get(i).getId()==idDoc) {
+                if (doclist.get(i).getAutor().equals(activeUser)) {
+                    flag=1;
+                    textoAntiguo=doclist.get(i).getContenido().get(doclist.get(i).getContenido().size()-1).getTexto();
+                    textoNuevo=textoAntiguo.concat(textoAgregar);
+                    Contenido contenidoAgregar= new Contenido(textoNuevo);
+                    contenidoAgregar.setId(doclist.get(i).getContenido().size()+1);
+                    doclist.get(i).contenido.add(contenidoAgregar);
+                    System.out.println("El texto se ha añadido con exito como una nueva version del documento.");
+                    break;
+                }else{
+                    for (int j = 0; j < doclist.get(i).getCompartidos().size(); j++) {
+                        if (doclist.get(i).getCompartidos().get(j).getNombre().equals(activeUser) && doclist.get(i).getCompartidos().get(j).getPermiso().equals("W")) {
+                            flag=1;
+                            textoAntiguo=doclist.get(i).getContenido().get(doclist.get(i).getContenido().size()-1).getTexto();
+                            textoNuevo=textoAntiguo.concat(textoAgregar);
+                            Contenido contenidoAgregar= new Contenido(textoNuevo);
+                            contenidoAgregar.setId(doclist.get(i).getContenido().size()+1);
+                            doclist.get(i).contenido.add(contenidoAgregar);
+                            System.out.println("El texto se ha añadido con exito como una nueva version del documento.");
+                            break;
+                        }else{
+                            flag=2;
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (flag==2) {
+            System.out.println("Usted no posee permisos para escribir en este documento.");
+        }
+        if (flag==0) {
+            System.out.println("No se encontro el documento.");
         }
     }
     
