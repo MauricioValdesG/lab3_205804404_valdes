@@ -20,7 +20,7 @@ public class Documento {
     private final Date fecha;
     private final String nombreDocumento;
     List<Contenido> contenido;
-    List<String> compartidos;
+    List<Compartidos> compartidos;
 
     public Documento(String autor, String nombreDocumento) {
         this.id = counter.incrementAndGet();
@@ -51,7 +51,7 @@ public class Documento {
         return contenido;
     }
 
-    public List<String> getCompartidos() {
+    public List<Compartidos> getCompartidos() {
         return compartidos;
     }
 
@@ -59,7 +59,7 @@ public class Documento {
         this.contenido = contenido;
     }
 
-    public void setCompartidos(List<String> compartidos) {
+    public void setCompartidos(List<Compartidos> compartidos) {
         this.compartidos = compartidos;
     }
 
@@ -77,7 +77,7 @@ public class Documento {
                 + ", contenido=" 
                 + contenido.toString()
                 + ", compartidos=" 
-                + compartidos 
+                + compartidos.toString()
                 + '}';
     }
     

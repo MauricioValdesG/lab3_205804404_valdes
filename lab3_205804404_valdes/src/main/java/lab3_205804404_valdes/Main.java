@@ -1,6 +1,7 @@
 
 package lab3_205804404_valdes;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import lab3.TDAs.Editor;
@@ -114,6 +115,29 @@ public class Main {
                                             break;
                                         case 2:
                                             System.out.println("Has seleccionado Compartir documento");
+                                            System.out.println("Escriba el id del post");
+                                            int idDoc;
+                                            idDoc = sn2.nextInt();
+                                            System.out.println("Escriba el tipo de permiso");
+                                            String permiso;
+                                            permiso = sn5.nextLine();
+                                            System.out.println("A continuacion escribe los nombres de los usuarios a los cuales quieres compartir la publicacion");
+                                            ArrayList<String> destinatarios=new ArrayList();
+                                            int aux;
+                                            boolean flagAux=false;
+                                            while(!flagAux){
+                                                String dest;
+                                                System.out.println("Ingrese un usuario");
+                                                dest=sn9.next();
+                                                destinatarios.add(dest);
+                                                System.out.println("Desea ingresar otro?");
+                                                System.out.println("1. Si\n2. No");
+                                                aux=sn2.nextInt();
+                                                if(aux==2){
+                                                    flagAux=true;
+                                                }
+                                            }
+                                            editor.share(destinatarios, idDoc, permiso);
                                             break;
                                         case 3:
                                             System.out.println("Has seleccionado Agregar contenido a un documento");

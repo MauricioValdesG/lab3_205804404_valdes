@@ -163,7 +163,7 @@ public class Editor{
     
     public void create(String nombre, String contenido){
         if ("".equals(activeUser)) {
-            System.out.println("La publicacion se ha realizado con exito.");
+            System.out.println("Debe iniciar sesion primero.");
         }
         else{
             Documento newDocumento = new Documento(activeUser, nombre);
@@ -171,6 +171,49 @@ public class Editor{
             newDocumento.contenido.add(newContenido);
             doclist.add(newDocumento);
             System.out.println("La publicacion se ha realizado con exito.");
+        }
+    }
+    
+    public void share(List<String> usuariosCompartir, int id, String permiso){
+    
+        int aux=0;
+        int aux2=0;
+        if (usuariosCompartir == null || usuariosCompartir.isEmpty()) {
+            System.out.println("Debe ingresar una lista de usuarios a compartir.");
+        }
+        ArrayList<String> listaAux = new ArrayList();
+        for (int i = 0; i < usuariosCompartir.size(); i++) {
+            for (int j = 0; j < userlist.size(); j++) {
+                if (userlist.get(j).getNombre().equals(usuariosCompartir.get(i))) {
+                    listaAux.add(usuariosCompartir.get(i));
+                }
+            }   
+        }
+        if (listaAux == null || listaAux.isEmpty()) {
+            System.out.println("Ninguno de los usuarios existe.");
+        }else{
+            for (int i = 0; i < doclist.size(); i++) {
+                if (doclist.get(i).getId() == id && doclist.get(i).getAutor().equals(activeUser)) {
+                    for (int j = 0; j < listaAux.size(); j++) {
+                        if (!listaAux.get(j).equals(activeUser)) {
+                            Compartidos compartidoActual = new Compartidos(listaAux.get(j), permiso);
+                            doclist.get(i).compartidos.add(compartidoActual);
+                            aux=1;
+                        }else{
+                            aux2=1;
+                        }
+                    }
+                }
+            }
+            if (aux2==1){
+                System.out.println("No se puede compartir el documento a usted mismo.");
+            }
+            if (aux==1) {
+                System.out.println("Se ha compartido con exito.");
+            }else{
+                System.out.println("No se ha podido compartir el documento.");
+            }
+            
         }
     }
     
