@@ -124,7 +124,7 @@ public class Main {
                                             while(!flagAux1){
                                                 System.out.println("Solo se admite W, R, C, todos en mayuscula");
                                                 System.out.println("Escriba el tipo de permiso:");
-                                                permiso = sn5.nextLine();
+                                                permiso = sn5.next();
                                                 if(permiso.equals("W") || permiso.equals("R") || permiso.equals("C")){
                                                     flagAux1=true;
                                                 }else{

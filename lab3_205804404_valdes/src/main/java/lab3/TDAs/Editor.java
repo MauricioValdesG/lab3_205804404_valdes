@@ -200,7 +200,7 @@ public class Editor{
         else{
             Documento newDocumento = new Documento(activeUser, nombre);
             Contenido newContenido = new Contenido(contenido);
-            newContenido.setId(newDocumento.getContenido().size()+1);
+            newContenido.setId(newDocumento.getContenido().size());
             newDocumento.contenido.add(newContenido);
             doclist.add(newDocumento);
             System.out.println("La publicacion se ha realizado con exito.");
@@ -408,7 +408,7 @@ public class Editor{
                     listaAux.add(doclist.get(i));
                 }
                 for (int j = 0; j < doclist.get(i).getCompartidos().size(); j++) {
-                    if (doclist.get(i).getCompartidos().get(j).getNombre().equals(activeUser) && doclist.get(i).getCompartidos().get(j).getPermiso().equals("W")){
+                    if (doclist.get(i).getCompartidos().get(j).getNombre().equals(activeUser)){
                         listaAux.add(doclist.get(i));
                     }
                 }
