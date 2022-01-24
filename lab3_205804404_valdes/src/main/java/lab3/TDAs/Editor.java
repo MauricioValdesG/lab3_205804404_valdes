@@ -57,6 +57,10 @@ public class Editor{
         this.activeUser = activeUser;
     }
     
+    /**
+     * llenar el stack con datos
+     * @param editor1 el stack que se llenara
+     */
     public void llenarStack(Editor editor1){
         Usuario user1= new Usuario("user1", "pass1");
         Usuario user2= new Usuario("user2", "pass2");
@@ -120,6 +124,11 @@ public class Editor{
         editor1.doclist.add(doc10);
     }
     
+    /**
+     * funcion para registrar un usuario en el stack
+     * @param NombreUser nombre del usuario a registrar
+     * @param contraseniaUser contraseña del usuario a registrar
+     */
     public void register(String NombreUser, String contraseniaUser){
         
         if(userlist == null || userlist.isEmpty()){
@@ -144,6 +153,11 @@ public class Editor{
         }
     }
     
+    /**
+     * funcion para iniciar sesion, agrega el nombre del usuario a activeUser
+     * @param NombreUser
+     * @param contraseniaUser
+     */
     public void login(String NombreUser, String contraseniaUser){
         
         int aux=0;
@@ -167,10 +181,18 @@ public class Editor{
         }
     }
     
+    /**
+     * funcion para salirse de la sesion iniciada, elimina el nombre de activeUser
+     */
     public void logout(){
         this.activeUser = "";
     }
     
+    /**
+     * funcion para crear un documento
+     * @param nombre nombre el documento
+     * @param contenido contenido que el documento tendra
+     */
     public void create(String nombre, String contenido){
         if ("".equals(activeUser)) {
             System.out.println("Debe iniciar sesion primero.");
@@ -185,6 +207,12 @@ public class Editor{
         }
     }
     
+    /**
+     * funcion para compartir un documento con distintos usuarios
+     * @param usuariosCompartir lista de usuarios a compartir
+     * @param id id del documento a compartir
+     * @param permiso permiso que se otorgara a los usuarios
+     */
     public void share(List<String> usuariosCompartir, int id, String permiso){
     
         int aux=0;
@@ -204,14 +232,30 @@ public class Editor{
             System.out.println("Ninguno de los usuarios existe.");
         }else{
             for (int i = 0; i < doclist.size(); i++) {
-                if (doclist.get(i).getId() == id && doclist.get(i).getAutor().equals(activeUser)) {
-                    for (int j = 0; j < listaAux.size(); j++) {
-                        if (!listaAux.get(j).equals(activeUser)) {
-                            Compartidos compartidoActual = new Compartidos(listaAux.get(j), permiso);
-                            doclist.get(i).compartidos.add(compartidoActual);
-                            aux=1;
-                        }else{
-                            aux2=1;
+                if (doclist.get(i).getId() == id) {
+                    if (doclist.get(i).getAutor().equals(activeUser)) {
+                        for (int j = 0; j < listaAux.size(); j++) {
+                            if (!listaAux.get(j).equals(activeUser)) {
+                                Compartidos compartidoActual = new Compartidos(listaAux.get(j), permiso);
+                                doclist.get(i).compartidos.add(compartidoActual);
+                                aux=1;
+                            }else{
+                                aux2=1;
+                            }
+                        }
+                    }else{
+                        for (int j = 0; j < doclist.get(i).getCompartidos().size(); j++) {
+                            if (doclist.get(i).getCompartidos().get(j).getNombre().equals(activeUser) && doclist.get(i).getCompartidos().get(j).getPermiso().equals("W")){
+                                for (int k = 0; k < listaAux.size(); k++) {
+                                    if (!listaAux.get(k).equals(activeUser)) {
+                                        Compartidos compartidoActual = new Compartidos(listaAux.get(k), permiso);
+                                        doclist.get(i).compartidos.add(compartidoActual);
+                                        aux=1;
+                                    }else{
+                                        aux2=1;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -228,6 +272,11 @@ public class Editor{
         }
     }
     
+    /**
+     * funcion para añadir texto a la sesion activa de un documento
+     * @param idDoc id documento a modificar
+     * @param textoAgregar texto que se quiere agregar
+     */
     public void add(int idDoc, String textoAgregar){
         String textoAntiguo;
         String textoNuevo;
@@ -272,6 +321,11 @@ public class Editor{
         }
     }
     
+    /**
+     * funcion para restaurar una version anterior
+     * @param idDoc id del documento 
+     * @param idVersion version que se quiere restaurar
+     */
     public void rollback(int idDoc, int idVersion){
     
         int flag=0;
@@ -309,6 +363,10 @@ public class Editor{
         }
     }
     
+    /**
+     * funcion para quitar los permisos de un documento
+     * @param idDoc id del documento
+     */
     public void revokeAccess(int idDoc){
         
         int flag=0;
@@ -335,6 +393,7 @@ public class Editor{
     
     @Override
     public String toString(){
+        ArrayList<Documento> listaAux = new ArrayList();
         if (activeUser.equals("")) {
             return "usuarios:"
                     + "\n"                    
@@ -343,10 +402,21 @@ public class Editor{
                     + " publicaciones:"
                     + "\n"
                     + doclist.toString();
+        }else{
+            for (int i = 0; i < doclist.size(); i++) {
+                if (doclist.get(i).getAutor().equals(activeUser)) {
+                    listaAux.add(doclist.get(i));
+                }
+                for (int j = 0; j < doclist.get(i).getCompartidos().size(); j++) {
+                    if (doclist.get(i).getCompartidos().get(j).getNombre().equals(activeUser) && doclist.get(i).getCompartidos().get(j).getPermiso().equals("W")){
+                        listaAux.add(doclist.get(i));
+                    }
+                }
+                
+            }
+            return "publicaciones:"
+                    + "\n"
+                    + listaAux.toString();
         }
-        return null;
-        
     }
-    
-    
 }

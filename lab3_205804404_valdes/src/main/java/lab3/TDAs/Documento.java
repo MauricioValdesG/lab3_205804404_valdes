@@ -16,7 +16,7 @@ public class Documento {
     //atributo
     private static final AtomicInteger counter = new AtomicInteger();
     private final int id;
-    private final String autor;
+    private final String autor; 
     private final Date fecha;
     private final String nombreDocumento;
     List<Contenido> contenido;
@@ -66,17 +66,19 @@ public class Documento {
     @Override
     public String toString() {
         return "Documento{" 
-                + "id=" 
+                + "id= " 
                 + id 
-                + ", autor=" 
+                + ", autor= " 
                 + autor 
-                + ", fecha=" 
+                + ", fecha= " 
                 + fecha 
-                + ", nombreDocumento=" 
+                + ", nombreDocumento= " 
                 + nombreDocumento 
-                + ", contenido=" 
-                + contenido.toString()
-                + ", compartidos=" 
+                + ", contenido de la sesion activa= " 
+                + contenido.get(contenido.size()-1).toString()
+                + ", cantidad de versiones "
+                + contenido.size()
+                + ", compartidos= " 
                 + compartidos.toString()
                 + '}';
     }

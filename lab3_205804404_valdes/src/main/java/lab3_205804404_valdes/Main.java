@@ -119,11 +119,18 @@ public class Main {
                                             int idDoc;
                                             idDoc = sn2.nextInt();
                                             System.out.println("A continuacion es el tipo de permiso");
-                                            System.out.println("Solo se admite W, R, C, todos en mayuscula");
-                                            System.out.println("Cualquier otra letra no tendra ningun efecto dentro de las funciones que pueda realizar el usuario");
-                                            System.out.println("Escriba el tipo de permiso:");
-                                            String permiso;
-                                            permiso = sn5.nextLine();
+                                            String permiso = null;
+                                            boolean flagAux1=false;
+                                            while(!flagAux1){
+                                                System.out.println("Solo se admite W, R, C, todos en mayuscula");
+                                                System.out.println("Escriba el tipo de permiso:");
+                                                permiso = sn5.nextLine();
+                                                if(permiso.equals("W") || permiso.equals("R") || permiso.equals("C")){
+                                                    flagAux1=true;
+                                                }else{
+                                                    System.out.println("Error en el tipo de permiso");
+                                                }
+                                            }
                                             System.out.println("A continuacion escribe los nombres de los usuarios a los cuales quieres compartir la publicacion");
                                             ArrayList<String> destinatarios=new ArrayList();
                                             int aux;
@@ -140,8 +147,12 @@ public class Main {
                                                     flagAux=true;
                                                 }
                                             }
+                                        {
                                             editor.share(destinatarios, idDoc, permiso);
+                                        }
                                             break;
+
+
                                         case 3:
                                             System.out.println("Has seleccionado Agregar contenido a un documento");
                                             System.out.println("Escriba el id del documento");
@@ -171,9 +182,11 @@ public class Main {
                                             break;
                                         case 6:
                                             System.out.println("Has seleccionado Buscar en los documentos");
+                                            System.out.println("Esta funcion no esta implementada");
                                             break;
                                         case 7:
-                                            System.out.println("Has seleccionado Visualizar red social");
+                                            System.out.println("Has seleccionado Visualizar el editor colaborativo");
+                                            System.out.println(editor.toString());
                                             break;
                                         case 8:
                                             System.out.println("Has seleccionado Cerrar sesión");
